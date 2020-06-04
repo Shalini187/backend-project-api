@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
+# ....................... #
+
 from django.contrib.auth.models import BaseUserManager
 
 
@@ -33,6 +35,7 @@ class UserProfileManager(BaseUserManager):
         return user
 
 
+        
 class UserProfile(AbstractBaseUser, PermissionsMixin):
     """
     Represents a "user profile" inside out system. Stores all user account
@@ -60,6 +63,6 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
         return self.name
 
     def __str__(self):
-        """Django uses this when it needs to deserialize."""
+        """Django uses this when it needs to convert the object to text."""
 
         return self.email

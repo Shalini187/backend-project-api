@@ -35,7 +35,6 @@ class UserProfileManager(BaseUserManager):
         return user
 
 
-        
 class UserProfile(AbstractBaseUser, PermissionsMixin):
     """
     Represents a "user profile" inside out system. Stores all user account

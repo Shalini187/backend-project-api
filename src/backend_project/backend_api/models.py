@@ -35,19 +35,25 @@ if conf.AUTOCREATE_DB:
 
 
 class ActivityLog(models.Model):
-    user_id = models.IntegerField(_('user id '))
+    user_id = models.CharField(_('user id'), max_length=10)
     user = models.CharField(_('user'), max_length=256)
-    request_url = models.CharField(_('url'), max_length=256)
-    request_method = models.CharField(_('http method'), max_length=10)
-    response_code = models.CharField(_('response code'), max_length=3)
-    datetime = models.DateTimeField(_('datetime'), default=timezone.now)
-    extra_data = models.TextField(_('extra data'), blank=True, null=True)
-    ip_address = models.GenericIPAddressField(
-        _('user IP'), null=True, blank=True)
+    user_tz = models.CharField(_('user tz'), max_length=256)
+    activity_period = models.ManyToManyField("ActivityPeriod", blank=True)
 
     class Meta:
         verbose_name = _('activity log')
 
+class ActivityPeriod(models.Model):
+    start_time = models.DateTimeField(_('start_time'), default=timezone.now)
+    end_time = models.DateTimeField(_('end_time'), default=timezone.now)
+
+    def get_full_period(self):
+        self.start_time = timezone.now()
+        self.end_time = timezone.now()
+        self.save(update_fields=["start_time", "end_time"])
+        value = "start_time = " + str(start_time) + "\n" + "end_time = " + str(end_time)
+
+        return value
 
 class UserMixin(models.Model):
     last_activity = models.DateTimeField(

@@ -9,17 +9,17 @@ from .models import ActivityLog
 from . import conf
 
 
-def get_ip_address(request):
-    for header in conf.IP_ADDRESS_HEADERS:
-        addr = request.META.get(header)
-        if addr:
-            return addr.split(',')[0].strip()
-
-
-def get_extra_data(request, response, body):
-    if not conf.GET_EXTRA_DATA:
-        return
-    return _load(conf.GET_EXTRA_DATA)(request, response, body)
+# def get_ip_address(request):
+#     for header in conf.IP_ADDRESS_HEADERS:
+#         addr = request.META.get(header)
+#         if addr:
+#             return addr.split(',')[0].strip()
+#
+#
+# def get_extra_data(request, response, body):
+#     if not conf.GET_EXTRA_DATA:
+#         return
+#     return _load(conf.GET_EXTRA_DATA)(request, response, body)
 
 
 class ActivityLogMiddleware:
@@ -61,9 +61,6 @@ class ActivityLogMiddleware:
         ActivityLog.objects.create(
             user_id=user_id,
             user=user,
-            request_url=request.build_absolute_uri()[:255],
-            request_method=request.method,
-            response_code=response.status_code,
-            ip_address=get_ip_address(request),
-            extra_data=get_extra_data(request, response, body)
+            user_tz=user_tz,
+            activity_period = activity_period
         )

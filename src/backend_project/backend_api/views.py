@@ -23,8 +23,15 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (permissions.UpdateOwnProfile,)
     filter_backends = (filters.SearchFilter,)
-    search_fields = ('name', 'email',)
+    search_fields = ('user', 'email',)
 
+# class ActivityViewSet(viewsets.ModelViewSet):
+#     """Handles creating, creating and updating profiles."""
+#
+#     serializer_class = serializers.ActivityViewSetSerializer
+#     queryset = models.ActivityLog.objects.all()
+#     filter_backends = (filters.SearchFilter,)
+#     search_fields = ('name', 'email',)
 
 class LoginViewSet(viewsets.ViewSet):
     """Checks email and password and returns an auth token."""

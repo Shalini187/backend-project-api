@@ -40,27 +40,3 @@ class ActivityPeriodViewSet(viewsets.ModelViewSet):
     queryset = models.ActivityPeriod.objects.all()
     filter_backends = (filters.SearchFilter,)
     search_fields = ('start_time', 'end_time')
-
-
-class LoginViewSet(viewsets.ViewSet):
-    """Checks email and password and returns an auth token."""
-
-    serializer_class = AuthTokenSerializer
-
-    def create(self, request):
-        """Use the ObtainAuthToken APIView to validate and create a token."""
-
-        return ObtainAuthToken().post(request)
-
-class UserProfileFeedViewSet(viewsets.ModelViewSet):
-    """Handles creating, reading and updating profile feed items."""
-
-    authentication_classes = (TokenAuthentication,)
-    serializer_class = serializers.ProfileFeedItemSerializer
-    queryset = models.ProfileFeedItem.objects.all()
-    permission_classes = (permissions.PostOwnStatus, IsAuthenticatedOrReadOnly)
-
-    def perform_create(self, serializer):
-        """Sets the user profile to the logged in user."""
-
-        serializer.save(user_profile=self.request.user)

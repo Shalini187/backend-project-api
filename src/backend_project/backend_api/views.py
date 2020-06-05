@@ -30,8 +30,12 @@ class ActivityViewSet(viewsets.ModelViewSet):
 
     serializer_class = serializers.ActivitySerializer
     queryset = models.ActivityLog.objects.all()
-    filter_backends = (filters.SearchFilter,)
-    search_fields = ('user_id', 'user', 'user_location', 'activity_period')
+
+    def all_service_json(request, name):
+        services = models.ActivityLog.objects.filter(name__icontains=user)
+        data = serializers.ActivitySerializer(services, many=True).data
+        return HttpResponse(data)
+
 
 class ActivityPeriodViewSet(viewsets.ModelViewSet):
     """Handles creating, creating and updating profiles."""

@@ -3,20 +3,20 @@ from rest_framework import serializers
 from . import models
 
 
-class ActivitySerializer(serializers.ModelSerializer):
-    """A serializer for our user profile objects."""
-
-    class Meta:
-        model = models.ActivityLog
-        fields = ('user_id', 'user', 'user_location', 'activity_period')
-
-
 class ActivityPeriodSerializer(serializers.ModelSerializer):
     """A serializer for our user profile objects."""
 
     class Meta:
         model = models.ActivityPeriod
         fields = ('start_time', 'end_time')
+
+class ActivitySerializer(serializers.ModelSerializer):
+    """A serializer for our user profile objects."""
+    activity_period = ActivityPeriodSerializer(read_only=True, many=True)
+
+    class Meta:
+        model = models.ActivityLog
+        fields = '__all__'
 
 class UserProfileSerializer(serializers.ModelSerializer):
     """A serializer for our user profile objects."""

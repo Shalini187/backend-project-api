@@ -51,6 +51,12 @@ class ActivityLog(models.Model):
     class Meta:
         verbose_name = _('activity log')
 
+    def get_period(self):
+        return "\n".join([ "start_time = " + str(p) + "\n" + "end_time = " + str(p) for p in self.activity_period.all()])
+
+    def get_periods(self):
+        return "\n".join([ "{start_time = " + str(p) + "\n" + "end_time = " + str(p) + "}" for p in self.activity_period.all()])
+
 class ActivityPeriod(models.Model):
     start_time = models.DateTimeField(_('start_time'), default=timezone.now)
     end_time = models.DateTimeField(_('end_time'), default=timezone.now)

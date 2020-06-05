@@ -20,6 +20,14 @@ from django.db.utils import ProgrammingError
 from . import conf
 
 
+COUNTRY_CHOICES= [
+    ('Europe/London', 'Europe/London'),
+    ('Asia/Kolkata', 'Asia/Kolkata'),
+    ('America/Los_Angeles', 'America/Los_Angeles'),
+    ('Asia/Shanghai', 'Asia/Shanghai'),
+    ]
+
+
 if conf.AUTOCREATE_DB:
     @receiver(pre_migrate, sender=apps.get_app_config('activity_log'))
     def createdb(sender, using, **kwargs):
@@ -37,7 +45,7 @@ if conf.AUTOCREATE_DB:
 class ActivityLog(models.Model):
     user_id = models.CharField(_('user id'), max_length=10)
     user = models.CharField(_('user'), max_length=256)
-    user_tz = models.CharField(_('user tz'), max_length=256)
+    user_location = models.CharField(_('user location'), max_length=256, choices=COUNTRY_CHOICES)
     activity_period = models.ManyToManyField("ActivityPeriod", blank=True)
 
     class Meta:
@@ -51,7 +59,7 @@ class ActivityPeriod(models.Model):
         self.start_time = timezone.now()
         self.end_time = timezone.now()
         self.save(update_fields=["start_time", "end_time"])
-        value = "start_time = " + str(start_time) + "\n" + "end_time = " + str(end_time)
+        value = "start_time = " + str(self.start_time) + "\n" + "end_time = " + str(self.end_time)
 
         return value
 

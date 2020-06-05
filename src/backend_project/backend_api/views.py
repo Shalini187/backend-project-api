@@ -25,13 +25,13 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.SearchFilter,)
     search_fields = ('user', 'email',)
 
-# class ActivityViewSet(viewsets.ModelViewSet):
-#     """Handles creating, creating and updating profiles."""
-#
-#     serializer_class = serializers.ActivityViewSetSerializer
-#     queryset = models.ActivityLog.objects.all()
-#     filter_backends = (filters.SearchFilter,)
-#     search_fields = ('name', 'email',)
+class ActivityViewSet(viewsets.ModelViewSet):
+    """Handles creating, creating and updating profiles."""
+
+    serializer_class = serializers.ActivitySerializer
+    queryset = models.ActivityLog.objects.all()
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('user_id', 'user', 'user_location', 'activity_period')
 
 class LoginViewSet(viewsets.ViewSet):
     """Checks email and password and returns an auth token."""

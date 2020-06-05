@@ -61,6 +61,6 @@ class ActivityLogMiddleware:
         ActivityLog.objects.create(
             user_id=user_id,
             user=user,
-            user_tz=user_tz,
+            user_location=user_location,
             activity_period = activity_period
         )

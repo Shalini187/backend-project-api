@@ -10,5 +10,3 @@ class ActivityPeriodAdmin(admin.ModelAdmin):
 
 admin.site.register(models.ActivityLog, LogAdmin)
 admin.site.register(models.ActivityPeriod, ActivityPeriodAdmin)
-admin.site.register(models.UserProfile)
-admin.site.register(models.ProfileFeedItem)

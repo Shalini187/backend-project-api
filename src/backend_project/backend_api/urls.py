@@ -10,6 +10,7 @@ router.register('users', views.UserProfileViewSet)
 router.register('login', views.LoginViewSet, base_name='login')
 router.register('feed', views.UserProfileFeedViewSet)
 router.register('members', views.ActivityViewSet)
+router.register('activity', views.ActivityPeriodViewSet)
 
 urlpatterns = [
     url(r'', include(router.urls))

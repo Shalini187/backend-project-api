@@ -33,6 +33,15 @@ class ActivityViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.SearchFilter,)
     search_fields = ('user_id', 'user', 'user_location', 'activity_period')
 
+class ActivityPeriodViewSet(viewsets.ModelViewSet):
+    """Handles creating, creating and updating profiles."""
+
+    serializer_class = serializers.ActivityPeriodSerializer
+    queryset = models.ActivityPeriod.objects.all()
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('start_time', 'end_time')
+
+
 class LoginViewSet(viewsets.ViewSet):
     """Checks email and password and returns an auth token."""
 

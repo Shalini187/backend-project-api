@@ -11,6 +11,13 @@ class ActivitySerializer(serializers.ModelSerializer):
         fields = ('user_id', 'user', 'user_location', 'activity_period')
 
 
+class ActivityPeriodSerializer(serializers.ModelSerializer):
+    """A serializer for our user profile objects."""
+
+    class Meta:
+        model = models.ActivityPeriod
+        fields = ('start_time', 'end_time')
+
 class UserProfileSerializer(serializers.ModelSerializer):
     """A serializer for our user profile objects."""
 

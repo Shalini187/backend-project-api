@@ -9,19 +9,6 @@ from .models import ActivityLog
 from . import conf
 
 
-# def get_ip_address(request):
-#     for header in conf.IP_ADDRESS_HEADERS:
-#         addr = request.META.get(header)
-#         if addr:
-#             return addr.split(',')[0].strip()
-#
-#
-# def get_extra_data(request, response, body):
-#     if not conf.GET_EXTRA_DATA:
-#         return
-#     return _load(conf.GET_EXTRA_DATA)(request, response, body)
-
-
 class ActivityLogMiddleware:
     def process_request(self, request):
         request.saved_body = request.body

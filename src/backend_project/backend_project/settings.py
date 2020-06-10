@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'backend_api',
-    'activity_log',
 ]
 
 MIDDLEWARE = [

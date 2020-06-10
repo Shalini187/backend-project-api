@@ -24,6 +24,10 @@ COUNTRY_CHOICES= [
     ('Asia/Kolkata', 'Asia/Kolkata'),
     ('America/Los_Angeles', 'America/Los_Angeles'),
     ('Asia/Shanghai', 'Asia/Shanghai'),
+    ('Africa/Brazzaville', 'Africa/Brazzaville'),
+    ('Australia/Lindeman', 'Australia/Lindeman'),
+    ('Chile/Continental', 'Chile/Continental'),
+    ('Mexico/BajaSur', 'Africa/Brazzaville'),
     ]
 
 
@@ -41,6 +45,10 @@ class ActivityLog(models.Model):
 
     def get_periods(self):
         return "\n".join([ "{start_time = " + str(p) + "\n" + "end_time = " + str(p) + "}" for p in self.activity_period.all()])
+
+    def save(self, *args, **kwargs):
+        self.user_id = self.user_id.upper()
+        return super(ActivityLog, self).save(*args, **kwargs)
 
 class ActivityPeriod(models.Model):
     start_time = models.DateTimeField(_('start_time'), default=timezone.now)

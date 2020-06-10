@@ -37,7 +37,7 @@ class ActivityViewSet(viewsets.ModelViewSet):
     def all_service_json(request, name):
         services = models.ActivityLog.objects.filter(name__icontains=user_id)
         data = serializers.ActivitySerializer(services, many=True).data
-        return HttpResponse(data)
+        return HttpResponse({'members': data})
 
 
 class ActivityPeriodViewSet(viewsets.ModelViewSet):

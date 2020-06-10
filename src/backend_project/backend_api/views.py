@@ -30,9 +30,12 @@ class ActivityViewSet(viewsets.ModelViewSet):
 
     serializer_class = serializers.ActivitySerializer
     queryset = models.ActivityLog.objects.all()
+    http_method_names = ['get']
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('user_id', 'user', 'user_location')
 
     def all_service_json(request, name):
-        services = models.ActivityLog.objects.filter(name__icontains=user)
+        services = models.ActivityLog.objects.filter(name__icontains=user_id)
         data = serializers.ActivitySerializer(services, many=True).data
         return HttpResponse(data)
 
@@ -44,3 +47,4 @@ class ActivityPeriodViewSet(viewsets.ModelViewSet):
     queryset = models.ActivityPeriod.objects.all()
     filter_backends = (filters.SearchFilter,)
     search_fields = ('start_time', 'end_time')
+    http_method_names = ['get']

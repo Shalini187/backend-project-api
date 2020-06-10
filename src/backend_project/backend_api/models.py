@@ -54,18 +54,6 @@ class ActivityPeriod(models.Model):
 
         return value
 
-class UserMixin(models.Model):
-    last_activity = models.DateTimeField(
-        _('last activity'), default=timezone.now, editable=False)
-
-    def update_last_activity(self):
-        self.last_activity = timezone.now()
-        self.save(update_fields=["last_activity"])
-
-    class Meta:
-        abstract = True
-
-
 class UserProfileManager(BaseUserManager):
     """Helps Django work with our custom user model."""
 

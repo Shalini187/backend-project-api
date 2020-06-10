@@ -16,7 +16,7 @@ class ActivitySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.ActivityLog
-        fields = '__all__'
+        fields = ('user_id', 'user', 'user_location','activity_period')
 
 class UserProfileSerializer(serializers.ModelSerializer):
     """A serializer for our user profile objects."""
